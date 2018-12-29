@@ -1,0 +1,96 @@
+{% extends 'index.html' %}
+
+{% block jss %}
+<script src="/static/js/jquery-1.11.3.js"></script>
+  <script>
+
+            {%  if  msg %}
+               if (confirm('{{msg}},是否回到主页')){
+                     window.location.href = "/";
+               }else{
+                     window.location.href = "/register";
+               }
+
+
+            {% endif %}
+
+
+            {%  if  error %}
+
+            alert('{{error}}')
+
+            {% endif %}
+            </script>
+
+
+{% endblock %}
+
+{% block mod %}
+
+<div class="col-md-4 col-sm-6 col-md-offset-4">
+
+
+<form lass="form-inline"  onsubmit="return sb();" action="/register" method="POST">
+  <div class="form-group">
+    <label for="exampleInputEmail1">邮箱</label>
+    <input type="email"  name = 'email' class="form-control" id="exampleInputEmail1" required placeholder="Email">
+  </div>
+    <div class="form-group">
+    <label for="">昵称</label>
+    <input type="text" name = 'name' class="form-control"  required title="昵称应为4-12位的字母或数字" pattern="^[a-zA-Z0-9_]{4,12}$" placeholder="nickname">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">密码</label>
+    <input type="password" name="password" class="form-control"  required title="密码为6-18位非特殊字符" pattern="^[a-zA-Z0-9_\+-=]{6,18}$" id="exampleInputPassword1" placeholder="Password">
+  </div>
+  <div class="form-group" >
+    <label for="exampleInputPassword1">再次输入密码</label>
+    <input type="password" id="password_two" class="form-control"  required title="密码为6-18位非特殊字符" pattern="^[a-zA-Z0-9_\+-=]{6,18}$" placeholder="Password">
+  </div>
+<div  class="form-group">
+      <div class="form-group" style="width: 40%;  float:left;margin-right: 20px">
+           <label for="exampleInputPassword1">性别</label>
+  <select class="form-control" name = 'sex'>
+  <option value="1">男</option>
+  <option value="2">女</option>
+</select>
+
+      </div>
+
+     <div class="form-group" style="width: 40% ;float:left">
+         <label for="exampleInputPassword1">年龄</label>
+
+    <input type="text" name ='age' class="form-control" id="" required pattern="(^[1-9][0-9]$)|(^[0-9]$)" title="格式有问题" placeholder="age">
+
+      </div>
+
+  </div>
+
+<div class="form-group">
+     <label for="">验证码</label>
+    <input type="text" class="form-control" required title="请输入4位字符" pattern="^(\w){4}$"  name="img" >
+    <img src="/code" onclick="this.src='/code?'+ Math.random()">
+  </div>
+  <button type="submit" class="btn btn-default" style="margin-top: 20px">Submit</button>
+</form>
+
+</div>
+
+<script>
+    function sb() {
+        var password = document.getElementsByName('password').values()
+        var password2 = document.getElementById('password_two').values()
+        if(password == password2){
+            return true
+        }else{
+            alert('两次密码必须一致!')
+            return false
+        }
+    }
+
+</script>
+{% endblock %}
+
+{% block cssdemo %}
+
+{% endblock %}
